@@ -1,16 +1,18 @@
 package org.hign.platform.u202212645.personnel.domain.model.aggregates;
 
-import org.hign.platform.u202212645.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
-import org.hign.platform.u202212645.personnel.domain.model.valueobjects.ExaminerNationalProviderIdentifier;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hign.platform.u202212645.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
+import org.hign.platform.u202212645.assesment.domain.model.valueobjects.NationalProviderIdentifier;
 
 import java.util.Date;
 
 @Entity
 @NoArgsConstructor
 @Getter
+@Setter
 public class MentalStateExam extends AuditableAbstractAggregateRoot<MentalStateExam> {
 
     @Column(nullable = false)
@@ -18,7 +20,7 @@ public class MentalStateExam extends AuditableAbstractAggregateRoot<MentalStateE
 
     @Embedded
     @Column(nullable = false)
-    private ExaminerNationalProviderIdentifier examinerNationalProviderIdentifier;
+    private NationalProviderIdentifier examinerNationalProviderIdentifier;
 
     @Column(nullable = false)
     private Date examDate;
@@ -38,7 +40,7 @@ public class MentalStateExam extends AuditableAbstractAggregateRoot<MentalStateE
     @Column(nullable = false)
     private Integer languageScore;
 
-    public MentalStateExam(Long patientId, ExaminerNationalProviderIdentifier examinerNationalProviderIdentifier, Date examDate, Integer orientationScore, Integer registrationScore, Integer attentionAndCalculationScore, Integer recallScore, Integer languageScore) {
+    public MentalStateExam(Long patientId, NationalProviderIdentifier examinerNationalProviderIdentifier, Date examDate, Integer orientationScore, Integer registrationScore, Integer attentionAndCalculationScore, Integer recallScore, Integer languageScore) {
         this.patientId = patientId;
         this.examinerNationalProviderIdentifier = examinerNationalProviderIdentifier;
         this.examDate = examDate;

@@ -8,9 +8,10 @@ import java.util.UUID;
 @Embeddable
 @Getter
 public class NationalProviderIdentifier {
-    private String value;
+    private final String value;
 
     public NationalProviderIdentifier() {
+        this.value = UUID.randomUUID().toString();
     }
 
     public NationalProviderIdentifier(String value) {
@@ -24,7 +25,7 @@ public class NationalProviderIdentifier {
         try {
             UUID.fromString(value);
             return true;
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException ex) {
             return false;
         }
     }
