@@ -30,7 +30,7 @@ public class MentalStateExamController {
             var mentalStateExamResource = MentalStateExamResourceFromEntityAssembler.toResourceFromEntity(mentalStateExam.get());
             return new ResponseEntity<>(mentalStateExamResource, HttpStatus.CREATED);
         } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(new MentalStateExamResource(null, null, null, null, null, null, null, null, null, e.getMessage()));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
 }

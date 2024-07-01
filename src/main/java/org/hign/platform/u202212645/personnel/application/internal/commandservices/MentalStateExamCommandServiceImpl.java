@@ -1,12 +1,11 @@
 package org.hign.platform.u202212645.personnel.application.internal.commandservices;
 
-import org.hign.platform.u202212645.assesment.domain.model.valueobjects.NationalProviderIdentifier;
 import org.hign.platform.u202212645.personnel.domain.model.aggregates.MentalStateExam;
 import org.hign.platform.u202212645.personnel.domain.model.commands.CreateMentalStateExamCommand;
 import org.hign.platform.u202212645.personnel.domain.model.valueobjects.ExaminerNationalProviderIdentifier;
 import org.hign.platform.u202212645.personnel.domain.services.MentalStateExamCommandService;
 import org.hign.platform.u202212645.personnel.infrastructure.persistence.jpa.repositories.MentalStateExamRepository;
-import org.hign.platform.u202212645.personnel.application.internal.outboundservices.ExaminerExternalService;
+import org.hign.platform.u202212645.personnel.application.internal.outboundservices.acl.ExternalExaminerService;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -16,11 +15,11 @@ import java.util.Optional;
 public class MentalStateExamCommandServiceImpl implements MentalStateExamCommandService {
 
     private final MentalStateExamRepository mentalStateExamRepository;
-    private final ExaminerExternalService examinerExternalService;
+    private final ExternalExaminerService externalExaminerService;
 
-    public MentalStateExamCommandServiceImpl(MentalStateExamRepository mentalStateExamRepository, ExaminerExternalService examinerExternalService) {
+    public MentalStateExamCommandServiceImpl(MentalStateExamRepository mentalStateExamRepository, ExternalExaminerService externalExaminerService) {
         this.mentalStateExamRepository = mentalStateExamRepository;
-        this.examinerExternalService = examinerExternalService;
+        this.externalExaminerService = externalExaminerService;
     }
 
     @Override
@@ -28,7 +27,7 @@ public class MentalStateExamCommandServiceImpl implements MentalStateExamCommand
         ExaminerNationalProviderIdentifier examinerNPI = new ExaminerNationalProviderIdentifier(command.examinerNationalProviderIdentifier());
 
         // Validar que el UUID corresponda a un examiner registrado
-        if (!examinerExternalService.existsByNationalProviderIdentifier(examinerNPI)) {
+        if (!externalExaminerService.existsByNationalProviderIdentifier(examinerNPI)) {
             throw new RuntimeException("Examiner not found for the given National Provider Identifier");
         }
 

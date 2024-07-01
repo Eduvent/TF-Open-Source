@@ -14,8 +14,7 @@ public class MentalStateExamResourceFromEntityAssembler {
                 entity.getRegistrationScore(),
                 entity.getAttentionAndCalculationScore(),
                 entity.getRecallScore(),
-                entity.getLanguageScore(),
-                null
+                entity.getLanguageScore()
         );
     }
 }
